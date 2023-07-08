@@ -1,17 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { login } from "../../redux/actions";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../redux/store";
+import { clearError } from "../../redux/actions/index";
 
 type Props = ConnectedProps<typeof connector>;
 
 const LoginForm: React.FC<Props> = ({ login }) => {
-  const error = useSelector((state: any) => state.auth.error);
+  const error = useSelector((state: RootState) => state.auth.error);
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Clear error after 2 seconds
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(clearError());
+      }, 2000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [error, dispatch]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

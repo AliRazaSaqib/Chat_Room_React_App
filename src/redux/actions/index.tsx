@@ -4,6 +4,7 @@ import {
   ADD_MESSAGE,
   DELETE_MESSAGE,
   RECEIVE_MESSAGES,
+  CLEAR_ERROR,
   Message,
   REGISTER,
   User,
@@ -40,4 +41,8 @@ export const deleteMessage = (messageId: string) => ({
 export const receiveMessages = (messages: Message[]) => ({
   type: RECEIVE_MESSAGES as typeof RECEIVE_MESSAGES,
   payload: messages,
+});
+
+export const clearError = () => ({
+  type: CLEAR_ERROR,
 });

@@ -9,7 +9,6 @@ type Props = ConnectedProps<typeof connector>;
 const MessageInput: React.FC<Props> = ({ addMessage }) => {
   const [message, setMessage] = useState("");
   const { username } = useSelector((state: any) => state.auth.user);
-  console.log(username, "username");
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
